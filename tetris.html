@@ -1,0 +1,618 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> My tetris </title>
+<style>
+#main {width:200px;margin:0 auto;position:relative;}
+.main_table {width:200px; background-color:#99FFCC;}
+.main_table tr{height:20px;}
+.main_table tr td{width:20px;border:0px;}
+.main_table tr td.act{background-color:#2E04EE}
+.main_table tr td.bg{background-color:#E78B10}
+</style>
+ </head>
+
+ <body>
+ <div id="main">
+<table border="0" align="center" cellpadding="0" cellspacing="0" class="main_table">
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+</table>
+ </div>
+
+
+
+ <script type="text/javascript" src="./jquery.min.js"></script>
+ <script type="text/javascript">
+    COLS = 10;
+    ROWS = 14;
+    a_arr = [
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+    ];
+
+    bg_arr = new Array();
+    for (var i = 0; i < ROWS; i++){
+        bg_arr[i] = new Array();
+        for (var j = 0; j < COLS; j++){
+            bg_arr[i][j] = 0;
+        }
+    }
+
+
+
+    bg_arr[13][0] = 1;
+    bg_arr[13][1] = 1;
+    bg_arr[13][2] = 1;
+    bg_arr[13][4] = 1;
+    bg_arr[13][5] = 1;
+    bg_arr[13][6] = 1;
+    bg_arr[12][0] = 1;
+    bg_arr[12][4] = 1;
+    bg_arr[12][5] = 1;
+
+    /**
+    * type :
+    0  **  1  ****  2    **  3  **   4   *   5  ***  6  ***
+        **                  **         **    ***     *             *
+    */
+    //第一维为类型,第二维为方向,第三维为方块数据
+    brick_rsc =
+    [
+        //type 0
+        [
+            //dir 0
+            [
+                [1,1],
+                [1,1]
+            ]
+        ],
+        //type 1
+        [
+            [
+                [1,1,1,1]
+            ],
+            [
+                [1],
+                [1],
+                [1],
+                [1]
+            ]
+        ],
+        //type 2
+        [
+            [
+                [0,1,1],
+                [1,1,0]
+            ],
+            [
+                [1,0],
+                [1,1],
+                [0,1]
+            ]
+        ],
+        //type 3
+        [
+            [
+                [1,1,0],
+                [0,1,1]
+            ],
+            [
+                [0,1],
+                [1,1],
+                [1,0]
+            ]
+        ],
+        //type 4
+        [
+            [
+                [0,1,0],
+                [1,1,1],
+            ],
+            [
+                [1,0],
+                [1,1],
+                [1,0]
+            ],
+            [
+                [1,1,1],
+                [0,1,0]
+            ],
+            [
+                [0,1],
+                [1,1],
+                [0,1]
+            ]
+        ],
+        //type 5
+        [
+            [
+                [1,1,1],
+                [1,0,0]
+            ],
+            [
+                [1,1],
+                [0,1],
+                [0,1]
+            ],
+            [
+                [0,0,1],
+                [1,1,1]
+            ],
+            [
+                [1,0],
+                [1,0],
+                [1,1]
+            ]
+        ],
+        //type 6
+        [
+            [
+                [1,1,1],
+                [0,0,1]
+            ],
+            [
+                [0,1],
+                [0,1],
+                [1,1]
+            ],
+            [
+                [1,0,0],
+                [1,1,1]
+            ],
+            [
+                [1,1],
+                [1,0],
+                [1,0]
+            ]
+        ]
+    ];
+    brick = {
+        position: {x: 3,y: 0},
+        type: 4,
+        dir: 0,
+        matrix:[]
+    }
+
+    var update_brick;
+
+    $(function() {
+        //~ brick.type random 0~6
+        brick.type = parseInt(Math.random()*7);
+        brick.dir = 0;
+
+        putBrickOnCanvas();
+
+        //根据数组初始化table
+        render('act');
+        render('bg');
+
+        setInterval(function(){
+            e = jQuery.Event("keydown");
+            e.keyCode = 40;
+            $(window).trigger(e)
+        }, 1000);
+
+        $(window).on('keydown', function(event){
+            var no_overflow = true;
+            var a_arr_tmp = [];
+            switch (event.keyCode){
+                case 37://left
+                    for (var i = 0; i < ROWS; i++){
+                        if (a_arr[i][0] == 1){
+                            no_overflow = false;
+                            break;
+                        }
+                    }
+                    if (no_overflow){
+                        //移动前备份a_arr
+                        var a_arr_tmp = backup_a_arr();
+
+                        for (var i = 0; i < ROWS; i++){
+                            a_arr[i].shift();
+                            a_arr[i].push(0);
+                        }
+
+                        //移动后判断有冲突吗?
+                        var conflict = is_conflict();
+                        //如果与BG有冲突还原a_arr
+                        if (conflict){
+                            a_arr = a_arr_tmp;
+                        }else{
+                            brick.position.x--;
+                            //如果没有冲突则重新渲染画面
+                            render('act');
+                        }
+                    }
+                    break;
+                case 39://right
+                    for (var i = 0; i < ROWS; i++){
+                        if(a_arr[i][COLS-1] == 1) {
+                            no_overflow = false;
+                            break;
+                        }
+                    }
+                    if (no_overflow){
+                        //移动前备份a_arr
+                        var a_arr_tmp = backup_a_arr();
+
+                        for (var i = 0; i < ROWS; i++){
+                            a_arr[i].pop();
+                            a_arr[i].unshift(0);
+                        }
+
+                        //移动后判断有冲突吗?
+                        var conflict = is_conflict();
+                        //如果与BG有冲突还原a_arr
+                        if (conflict){
+                            a_arr = a_arr_tmp;
+                        }else{
+                            brick.position.x++;
+                            //如果没有冲突则重新渲染画面
+                            render('act');
+                        }
+                    }
+                    break;
+                case 40://down
+                    if(!is_overflow_bottom()) {
+                        //移动前备份a_arr
+                        var a_arr_tmp = backup_a_arr();
+                        a_arr.pop();
+                        a_arr.unshift(new Array(0,0,0,0,0,0,0,0,0,0));
+                        //如果与BG有冲突还原a_arr
+                        if (is_conflict()){
+                            a_arr = a_arr_tmp;
+                            if(!update_brick)
+                                update_brick = setTimeout(updateBrick, 100);
+                        }else{
+                            if(update_brick) {
+                                clearTimeout(update_brick);
+                                update_brick = null;
+                            }
+                            brick.position.y++;
+                            //如果没有冲突则重新渲染画面
+                            render('act');
+                        }
+                    }else{
+                        if(!update_brick)
+                        update_brick = setTimeout(updateBrick, 100);
+                    }
+                    break;
+                case 32://space
+                    //旋转
+                    brick.dir++;
+                    var dir_count = brick_rsc[brick.type].length;
+                    if(brick.dir > (dir_count - 1)) brick.dir = 0;
+                    var a_arr_tmp = backup_a_arr();
+                    putBrickOnCanvas();
+                    //如果与BG有冲突还原a_arr
+                    if (is_conflict()){
+                        a_arr = a_arr_tmp;
+                        brick.dir--;
+                        dir_count = brick_rsc[brick.type].length;
+                        if(brick.dir < 0) brick.dir = dir_count - 1;
+                    }else{
+                        //如果没有冲突则重新渲染画面
+                        render('act');
+                    }
+                    render('act');
+                    break;
+            }
+        });
+    });
+
+    function is_overflow_bottom() {
+        for (var i = 0; i < COLS; i++){
+            if(a_arr[ROWS-1][i] == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function updateBrick() {
+        //判断能不能下移了,如果能则
+        if(!is_overflow_bottom()) {
+            //移动前备份a_arr
+            var a_arr_tmp = backup_a_arr();
+            a_arr.pop();
+            a_arr.unshift(new Array(0,0,0,0,0,0,0,0,0,0));
+            //移动后判断有冲突吗?
+            var conflict = is_conflict();
+            a_arr = a_arr_tmp;
+            if (!conflict){
+                if(update_brick) {
+                    update_brick = null;
+                    return;
+                }
+            }
+        }
+
+        //把现在的方块放到BG上
+        for (var i = 0; i < ROWS; i++){
+            for (j = 0; j < COLS; j++){
+                if (a_arr[i][j]){
+                    bg_arr[i][j] = 1;
+                }
+            }
+        }
+        //生成新方块
+        brick.position = {x: 3,y: 0};
+        brick.type = parseInt(Math.random()*7);
+        brick.dir = 0;
+        //更新a_arr
+        putBrickOnCanvas();
+        //消层逻辑
+        var del_count = 0;
+        //从下到上遍历
+        for (var i = ROWS - 1; i >= 0; i--){
+            var brick_count = 0;
+            for (var j = 0; j < COLS; j++){
+                if (bg_arr[i][j] == 1){
+                    brick_count++;
+                }
+            }
+            if (brick_count == 10){
+                bg_arr.splice(i, 1);
+                del_count++;
+            }
+        }
+        for (var i = 0; i < del_count; i++){
+            bg_arr.unshift(new Array(0,0,0,0,0,0,0,0,0,0));
+        }
+
+        render('bg');
+        render('act');
+    }
+
+    function putBrickOnCanvas() {
+        console.log(brick.type + ' ' + brick.dir);
+        brick.matrix = brick_rsc[brick.type][brick.dir];
+        brick.height = brick.matrix.length;
+        brick.width = brick.matrix[0].length;
+        var y1 = brick.position.y;
+        var y2 = brick.position.y + brick.height - 1;
+        var x1 = brick.position.x;
+        var x2 = brick.position.x + brick.width - 1;
+        overflow_right_count = x2 + 1 - COLS;
+
+        if (overflow_right_count > 0){
+            brick.position.x = brick.position.x - overflow_right_count;
+            x1 = brick.position.x;
+            x2 = brick.position.x + brick.width - 1;
+        }
+
+        overflow_down_count = y2 + 1 - ROWS;
+        if (overflow_down_count > 0){
+            brick.position.y = brick.position.y - overflow_down_count;
+            y1 = brick.position.y;
+            y2 = brick.position.y + brick.height -1;
+        }
+
+        for (var i = 0; i < ROWS; i++){
+            for (var j = 0; j < COLS; j++){
+                if(i < y1 || i > y2 || j < x1 || j > x2) {
+                    a_arr[i][j] = 0;
+                }else{
+                    a_arr[i][j] = brick.matrix[i-brick.position.y][j-brick.position.x];
+                }
+            }
+        }
+    }
+
+    function backup_a_arr() {
+        var a_arr_tmp = [];
+        for (var i = 0; i < ROWS; i++){
+            a_arr_tmp[i] = [];
+            for (var j = 0; j < COLS; j++){
+                a_arr_tmp[i][j]  = a_arr[i][j] ;
+            }
+        }
+        return a_arr_tmp;
+    }
+
+    function is_conflict() {
+        var conflict = false;
+        for (var i = 0; i < ROWS; i++){
+            for (var j = 0; j < COLS; j++){
+                if(a_arr[i][j] == 1 && bg_arr[i][j] == 1) {
+                    conflict = true
+                }
+            }
+        }
+        return conflict;
+    }
+
+    function render(act) {
+        var arr = act == 'act' ? a_arr : bg_arr;
+        for (var i = 0; i < ROWS; i++){
+            for (var j = 0; j < COLS; j++){
+                if (arr[i][j] == 1){
+                    $('.main_table tr:eq('+i+') td:eq('+j+')').addClass(act);
+                }else{
+                    $('.main_table tr:eq('+i+') td:eq('+j+')').removeClass(act);
+                }
+            }
+        }
+    }
+ </script>
+</body>
+</html>
